@@ -1,4 +1,4 @@
-<h2>JustDSD</h2>
+<h2>JustDSD + WSD&dagger;</h2>
 =======
 
 DSD audio format decoder and PCM encoder.
@@ -9,3 +9,5 @@ There is Android client for extracting dff <a href="https://play.google.com/stor
 
 <h3>Acknowledgment</h3>
 Special thanks to Peter McQuillan without his valuable information and testing efforts this project wasn't possible
+
+&dagger; WSD is a non-proprietary 1bit audio data exchange file format defined by 1bit consortium in Japan. KORG and a few manufactures support WSD.

@@ -33,6 +33,21 @@ public class Decoder implements Filters {
 	private double[][] lookupTable;
 	Random rnd;
 
+	/**
+	 * 
+	 * @author J.Fujimori
+	 * @param f
+	 * @throws DecodeException
+	 */
+	public void setOutputFormat(PCMFormat f) throws DecodeException {
+		if( f != null ) {
+			setPCMFormat(f);
+			return;
+		}
+		dsdf.initBuffers(0);
+		seek(0L);
+	}
+	
 	public void setPCMFormat(PCMFormat f) throws DecodeException {
 		if (dsdf == null)
 			throw new DecodeException("Target PCM format has to be set after calling init", null);
@@ -277,7 +292,7 @@ public class Decoder implements Filters {
 			throw new DecodeException("Channels to decode to less than in source", null);
 		if (samples.length % channels != 0)
 			throw new DecodeException("Buffer length isn't multiply of number channels", null);
-		if (dsdf.bufPos < 0 || dsdf.bufPos > dsdf.bufEnd) {
+		if (dsdf.bufPos < 0 || dsdf.bufPos >= dsdf.bufEnd) {
 			if (dsdf.readDataBlock() == false)
 				return -1;
 		}

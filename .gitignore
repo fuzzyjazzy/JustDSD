@@ -1,3 +1,23 @@
+#########################
+# For OSX environment
+# Desktop Services Store
+.DS_Store
+# Apache Subversion
+.svn
+# Thumbnails
+._*
+# Files that migtht appear on external disk
+.Spotlight-V100
+.Trashes
+
+#########################
+# For Windows
+# Image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
+
+#########################
+# Java
 /bin
-*.jar
-*.class

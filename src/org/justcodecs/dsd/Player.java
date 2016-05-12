@@ -42,9 +42,9 @@ public class Player {
 		long sampleCount = 0;
 		try {
 			DSDFormat<?> dsd;
-			if (f.endsWith(".dsf")) {
+			if (f.toLowerCase().endsWith(".dsf")) {
 				dsd = new DSFFormat();
-			} else if (f.endsWith(".iso")) {
+			} else if (f.toLowerCase().endsWith(".iso")) {
 				dsd = new DISOFormat();
 			} else
 				dsd = new DFFFormat();
