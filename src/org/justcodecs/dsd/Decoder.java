@@ -24,7 +24,7 @@ public class Decoder implements Filters {
 	}
 
 	protected PCMFormat pcmf;
-	protected DSDFormat dsdf;
+	protected DSDFormat<?> dsdf;
 	//protected long currentSample;
 	protected int ratio;
 	protected int scale;
@@ -59,7 +59,7 @@ public class Decoder implements Filters {
 		rnd = new Random();
 	}
 
-	public void init(DSDFormat f) throws DecodeException {
+	public void init(DSDFormat<?> f) throws DecodeException {
 		dsdf = f;
 	}
 

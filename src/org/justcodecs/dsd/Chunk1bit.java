@@ -26,7 +26,7 @@ class Chunk1bit extends BaseChunk {
 		try {
 			ds.seek(0L);
 			ds.readFully(header, 0, 2048);
-			System.out.println("ID=" + new String(header, 0, 4));
+			//System.out.println("ID=" + new String(header, 0, 4));
 			dataEnd = ds.length();
 			/*
 			metaAttrs = new HashMap<String, Object>();
