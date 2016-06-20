@@ -1,5 +1,6 @@
 package org.justcodecs.dsd;
 
+import java.io.EOFException;
 import java.io.IOException;
 
 import org.justcodecs.dsd.Decoder.DecodeException;
@@ -12,6 +13,7 @@ import org.justcodecs.dsd.Decoder.DecodeException;
  * This class is based on DFFFormat written by D. Rogatkin.
  * 
  * @author J. Fujimori
+ * @version 1.1 2016-06-18 add EOFException in readBlock()
  * @version 1.0 2016-04-03
  */
 public class WSDFormat extends DSDFormat<byte[]> {
@@ -19,10 +21,11 @@ public class WSDFormat extends DSDFormat<byte[]> {
 	byte buff[];
 	int block = 2048*2; //This buffer size should match the DoPDAC's
 	long filePosition;
-
+	
 	@Override
 	public void init(DSDStream ds) throws DecodeException {
 		super.init(ds);
+		filePosition = 0;
 		BaseChunk c = BaseChunk.create(dsdStream, metadataCharset);
 		if (c instanceof Chunk1bit == false)
 			throw new DecodeException("Invalid .wsd format, no 1bit chunk", null);
@@ -51,6 +54,10 @@ public class WSDFormat extends DSDFormat<byte[]> {
 			// throw new DecodeException("test", null);
 			bufPos = 0;
 			bufEnd = toRead + delta;
+		} catch (EOFException e) {
+			//-- This is important. Because readFully cause EOFExeption but
+			//-- it is not treated as an IOException.
+			//System.out.println("EOF " + bytes);
 		} catch (IOException e) {
 			throw new DecodeException("IO exception at reading samples", e);
 		}
@@ -90,9 +97,10 @@ public class WSDFormat extends DSDFormat<byte[]> {
 	@Override
 	void seek(long sampleNum) throws DecodeException {
 		try {
-			if (sampleNum == 0)
+			if (sampleNum == 0) {
 				dsdStream.seek(frm.dataStart);
-			else if (sampleNum > 0 && sampleNum < getSampleCount()) {
+				filePosition = 0;
+			} else if (sampleNum > 0 && sampleNum < getSampleCount()) {
 				// no accuracy for position in block
 				//long block = sampleNum / (fmt.blockSize * 8);
 				dsdStream.seek(frm.dataStart + sampleNum / (frm.channels() * 8));

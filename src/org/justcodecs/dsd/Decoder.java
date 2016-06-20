@@ -34,9 +34,10 @@ public class Decoder implements Filters {
 	Random rnd;
 
 	/**
+	 * Set format of output side of this decoder.
 	 * 
 	 * @author J.Fujimori
-	 * @param f
+	 * @param f		PCMFormat
 	 * @throws DecodeException
 	 */
 	public void setOutputFormat(PCMFormat f) throws DecodeException {
@@ -281,6 +282,19 @@ public class Decoder implements Filters {
 			}
 		}
 		return slen;
+	}
+
+	/**
+	 * decodePCM into double[][].
+	 * 
+	 * @author J.Fujimori
+	 * 
+	 * @param channels  double[][]
+	 * @return int 		sample count.
+	 * @throws DecodeException
+	 */
+	public int decodePCM(double[]... channels) throws DecodeException {
+		return  getSamples1(scale, 0, clipping, channels);
 	}
 
 	public int decodePCM(int[]... channels) throws DecodeException {
